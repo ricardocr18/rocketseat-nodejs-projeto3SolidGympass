@@ -1,0 +1,31 @@
+{
+  "name": "rocketseat-nodejs-projeto3solidgympass",
+  "version": "1.0.0",
+  "description": "Projeto desenvolvido para aplicação de check-ins em academias",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricardocr18/rocketseat-nodejs-projeto3SolidGympass.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ricardocr18/rocketseat-nodejs-projeto3SolidGympass/issues"
+  },
+  "homepage": "https://github.com/ricardocr18/rocketseat-nodejs-projeto3SolidGympass#readme",
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "fastify": "^4.29.0"
+  }
+}
