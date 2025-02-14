@@ -21,11 +21,13 @@
   "homepage": "https://github.com/ricardocr18/rocketseat-nodejs-projeto3SolidGympass#readme",
   "devDependencies": {
     "@types/node": "^22.13.1",
+    "prisma": "^6.3.1",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@prisma/client": "^6.3.1",
     "dotenv": "^16.4.7",
     "fastify": "^4.29.0",
     "zod": "^3.24.1"
