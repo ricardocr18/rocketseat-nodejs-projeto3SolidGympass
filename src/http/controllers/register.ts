@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify"
-import { hash } from "bcryptjs"
-import { prisma } from "@/lib/prisma"
 import { z } from "zod"
+import { RegisterUseCase } from "@/use-cases/register"
+import { PrismaUsersRepository } from "@/repositories/prisma-users-repository"
 
 export async function register (request: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({
@@ -12,28 +12,23 @@ export async function register (request: FastifyRequest, reply: FastifyReply) {
   
     const { name, email, password } = registerBodySchema.parse(request.body)
 
-    // validar e criar um hash para senha
-    const password_hash = await hash(password, 6)
+    try {
+      const prismaUsersRepository = new PrismaUsersRepository()
+      const registerUseCase = new RegisterUseCase(prismaUsersRepository)
 
-    // aqui vejo se já tem algum email cadastrado
-    const userWithSameEmail = await prisma.user.findUnique({
-      where: {
-        email
-      }
-    })
-    
-    // se tem e-mail cadastrado eu dou um aviso
-    if (userWithSameEmail){
-        return reply.status(409).send({message: 'E-mail já cadastrado'})
-    }
-  
-    await prisma.user.create({
-      data: {
+
+      await registerUseCase.execute({
         name,
         email,
-        password_hash
+        password
+      })
+    } catch (err) {
+      if (err instanceof Error) {
+        return reply.status(409).send({ message: err.message })
       }
-    })
+
+      throw err
+    }
   
     return reply.status(201).send()  
   }
